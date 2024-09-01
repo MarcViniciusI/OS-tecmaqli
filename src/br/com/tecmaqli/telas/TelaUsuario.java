@@ -41,10 +41,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado");
                 //apos clicar na na mensagem limpa os campos
-                txtNomeUsuario.setText(null);
-                txtLoginUsuario.setText(null);
-                txtSenhaUsuario.setText(null);
-                cboPerfilUsuario.setSelectedItem(null);
+                limpar();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -70,10 +67,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
-                    txtNomeUsuario.setText(null);
-                    txtLoginUsuario.setText(null);
-                    txtSenhaUsuario.setText(null);
-                    cboPerfilUsuario.setSelectedItem(null);
+                    limpar();
                 }
             }
         } catch (Exception e) {
@@ -100,10 +94,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso!");
-                    txtNomeUsuario.setText(null);
-                    txtLoginUsuario.setText(null);
-                    txtSenhaUsuario.setText(null);
-                    cboPerfilUsuario.setSelectedItem(null);
+                    limpar();
                 }
             }
         } catch (Exception e) {
@@ -122,15 +113,19 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso");
-                    txtNomeUsuario.setText(null);
-                    txtLoginUsuario.setText(null);
-                    txtSenhaUsuario.setText(null);
-                    cboPerfilUsuario.setSelectedItem(null);
+                    limpar();
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
+    }
+
+    private void limpar() {
+        txtNomeUsuario.setText(null);
+        txtLoginUsuario.setText(null);
+        txtSenhaUsuario.setText(null);
+        cboPerfilUsuario.setSelectedItem(null);
     }
 
     /**

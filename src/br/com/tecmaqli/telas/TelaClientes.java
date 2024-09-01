@@ -11,6 +11,7 @@ package br.com.tecmaqli.telas;
 import java.sql.*;
 import br.com.tecmaqli.dal.ModuloConexao;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 public class TelaClientes extends javax.swing.JInternalFrame {
@@ -62,17 +63,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso!");
-                    txtNomeCliente.setText(null);
-                    cboPerfil.setSelectedItem(null);
-                    txtCpfCnpj.setText(null);
-                    txtEmail.setText(null);
-                    txtCidade.setText(null);
-                    txtBairro.setText(null);
-                    txtLogradouro.setText(null);
-                    txtNumero.setText(null);
-                    txtPontoReferencia.setText(null);
-                    txtContato1.setText(null);
-                    txtContato2.setText(null);
+                    limpar();
                 }
             }
         } catch (Exception e) {
@@ -162,7 +153,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                     ? tblClientes.getModel().getValueAt(setar, 12).toString()
                     : "");
         }
-            btnAdicionar.setEnabled(false);
+        btnAdicionar.setEnabled(false);
     }
 
     //metodo alterar dados do usuario
@@ -200,17 +191,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Dados do cliente alterados com sucesso!");
-                    txtNomeCliente.setText(null);
-                    cboPerfil.setSelectedItem(null);
-                    txtCpfCnpj.setText(null);
-                    txtEmail.setText(null);
-                    txtCidade.setText(null);
-                    txtBairro.setText(null);
-                    txtLogradouro.setText(null);
-                    txtNumero.setText(null);
-                    txtPontoReferencia.setText(null);
-                    txtContato1.setText(null);
-                    txtContato2.setText(null);
+                    limpar();
                     btnAdicionar.setEnabled(true);
                 }
             }
@@ -218,6 +199,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     private void deletar() {
         //aviso ao remover usuario
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar este cliente ?");
@@ -229,17 +211,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso");
-                    txtNomeCliente.setText(null);
-                    cboPerfil.setSelectedItem(null);
-                    txtCpfCnpj.setText(null);
-                    txtEmail.setText(null);
-                    txtCidade.setText(null);
-                    txtBairro.setText(null);
-                    txtLogradouro.setText(null);
-                    txtNumero.setText(null);
-                    txtPontoReferencia.setText(null);
-                    txtContato1.setText(null);
-                    txtContato2.setText(null);
+                    limpar();
                     btnAdicionar.setEnabled(true);
                 }
             } catch (Exception e) {
@@ -247,8 +219,25 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         }
     }
+
     // metodo para limpar os campos do formulario
-    
+    private void limpar() {
+        txtConsultaCliente.setText(null);
+        txtIdCliente.setText(null);
+        txtNomeCliente.setText(null);
+        cboPerfil.setSelectedItem(null);
+        txtCpfCnpj.setText(null);
+        txtEmail.setText(null);
+        txtCidade.setText(null);
+        txtBairro.setText(null);
+        txtLogradouro.setText(null);
+        txtNumero.setText(null);
+        txtPontoReferencia.setText(null);
+        txtContato1.setText(null);
+        txtContato2.setText(null);
+        ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
