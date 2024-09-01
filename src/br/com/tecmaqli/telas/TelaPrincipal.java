@@ -4,6 +4,10 @@
  */
 package br.com.tecmaqli.telas;
 
+import java.util.Date;
+import java.text.DateFormat;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author marco
@@ -26,21 +30,190 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        Desktop = new javax.swing.JDesktopPane();
+        lblUsuario = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        Menu = new javax.swing.JMenuBar();
+        menuCad = new javax.swing.JMenu();
+        menucadcliente = new javax.swing.JMenuItem();
+        menucados = new javax.swing.JMenuItem();
+        menucadusuario = new javax.swing.JMenuItem();
+        menuRelatorio = new javax.swing.JMenu();
+        menuServico = new javax.swing.JMenuItem();
+        menuAjuda = new javax.swing.JMenu();
+        menuSobre = new javax.swing.JMenuItem();
+        menuOp = new javax.swing.JMenu();
+        menuSair = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema para controle ordem de serviço");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/tecmaqli/icones/Designer1.png"))); // NOI18N
+
+        javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
+        Desktop.setLayout(DesktopLayout);
+        DesktopLayout.setHorizontalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 868, Short.MAX_VALUE)
+        );
+        DesktopLayout.setVerticalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        lblUsuario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblUsuario.setText("jLabel1");
+
+        lblData.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblData.setText("jLabel1");
+
+        menuCad.setText("Cadastro");
+
+        menucadcliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menucadcliente.setText("Cliente");
+        menucadcliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menucadclienteActionPerformed(evt);
+            }
+        });
+        menuCad.add(menucadcliente);
+
+        menucados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menucados.setText("Ordem de Serviço");
+        menuCad.add(menucados);
+
+        menucadusuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menucadusuario.setText("Usuários");
+        menucadusuario.setEnabled(false);
+        menucadusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menucadusuarioActionPerformed(evt);
+            }
+        });
+        menuCad.add(menucadusuario);
+
+        Menu.add(menuCad);
+
+        menuRelatorio.setText("Relatório");
+        menuRelatorio.setEnabled(false);
+
+        menuServico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuServico.setText("Serviços");
+        menuRelatorio.add(menuServico);
+
+        Menu.add(menuRelatorio);
+
+        menuAjuda.setText("Ajuda");
+
+        menuSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuSobre.setText("Sobre");
+        menuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSobreActionPerformed(evt);
+            }
+        });
+        menuAjuda.add(menuSobre);
+
+        Menu.add(menuAjuda);
+
+        menuOp.setText("Opções");
+        menuOp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuOpActionPerformed(evt);
+            }
+        });
+
+        menuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuSair.setText("Sair");
+        menuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSairActionPerformed(evt);
+            }
+        });
+        menuOp.add(menuSair);
+
+        Menu.add(menuOp);
+
+        setJMenuBar(Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 776, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblData)
+                            .addComponent(lblUsuario))))
+                .addGap(3005, 3005, 3005))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(lblUsuario)
+                .addGap(51, 51, 51)
+                .addComponent(lblData)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(42, 42, 42))
+            .addComponent(Desktop)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(1126, 700));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menucadclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menucadclienteActionPerformed
+        // Tela Clientes
+        TelaClientes clientes = new TelaClientes();
+        clientes.setVisible(true);
+        Desktop.add(clientes);
+    }//GEN-LAST:event_menucadclienteActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // coloca a data do sistema na lblData
+        Date data = new Date();
+        DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
+        lblData.setText(formatador.format(data));
+    }//GEN-LAST:event_formWindowActivated
+
+    private void menuOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpActionPerformed
+    
+    }//GEN-LAST:event_menuOpActionPerformed
+
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
+        // exibi uma caixa de dialogo ao sair
+        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair ?","Atenção",JOptionPane.YES_NO_OPTION);
+        if (sair ==JOptionPane.YES_OPTION){
+        System.exit(0);}
+    }//GEN-LAST:event_menuSairActionPerformed
+
+    private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
+        // axibir tela sobre
+        TelaSobre sobre = new TelaSobre();
+        sobre.setVisible(true);
+    }//GEN-LAST:event_menuSobreActionPerformed
+
+    private void menucadusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menucadusuarioActionPerformed
+        //abre o formulario TelaUsuario dentro do desktop pane
+        TelaUsuario usuario = new TelaUsuario();
+        usuario.setVisible(true);
+        Desktop.add(usuario);
+    }//GEN-LAST:event_menucadusuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +251,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane Desktop;
+    private javax.swing.JMenuBar Menu;
+    private javax.swing.JLabel jLabel2;
+    public static javax.swing.JLabel lblData;
+    public static javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenu menuAjuda;
+    private javax.swing.JMenu menuCad;
+    private javax.swing.JMenu menuOp;
+    public static javax.swing.JMenu menuRelatorio;
+    private javax.swing.JMenuItem menuSair;
+    private javax.swing.JMenuItem menuServico;
+    private javax.swing.JMenuItem menuSobre;
+    private javax.swing.JMenuItem menucadcliente;
+    private javax.swing.JMenuItem menucados;
+    public static javax.swing.JMenuItem menucadusuario;
     // End of variables declaration//GEN-END:variables
 }

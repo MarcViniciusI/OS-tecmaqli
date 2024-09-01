@@ -13,9 +13,11 @@ public class ModuloConexao {
      public static Connection conector(){
      Connection conexao = null;
      String driver = "com.mysql.cj.jdbc.Driver";
+     //armazenando informação do banco de dados
      String url = "jdbc:mysql://localhost:3306/dbtecmaqli";
      String user = "root";
      String password = "aa3232fx.+A";
+     //estabelecendo conexao com banco de dados
      try {                         
          Class.forName(driver);
          conexao = DriverManager.getConnection(url, user, password);

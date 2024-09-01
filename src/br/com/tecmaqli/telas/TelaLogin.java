@@ -13,10 +13,11 @@ import javax.swing.JOptionPane;
  * @author marco
  */
 public class TelaLogin extends javax.swing.JFrame {
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+
     public void logar() {
         String sql = "select * from usuarios where login=? and senha =?";
         try {
@@ -31,19 +32,35 @@ public class TelaLogin extends javax.swing.JFrame {
             rs = pst.executeQuery();
             //se existir usuario e senha no banco 
             if (rs.next()) {
-                TelaPrincipal principal = new TelaPrincipal();
-                principal.setVisible(true);
-                //fecha a janela de login apos entrar na tela principal
-                this.dispose();
-                // fecha conexao com banco apos entrar na tela principal
-                conexao.close();
+                //visualisa o perfil do usuario
+                String perfil = rs.getString(5);
+                System.out.println(perfil);
+                // tratamento do perfil ao entrar no login
+                if (perfil.equals("admin")) {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.menucadusuario.setEnabled(true);
+                    TelaPrincipal.menuRelatorio.setEnabled(true);
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    //fecha a janela de login apos entrar na tela principal
+                    this.dispose();
+                    // fecha conexao com banco apos entrar na tela principal
+                    conexao.close();
+                } else {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    this.dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "usuário ou senha invalido(s)");
             }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     /**
      * Creates new form TelaLogin
      */
