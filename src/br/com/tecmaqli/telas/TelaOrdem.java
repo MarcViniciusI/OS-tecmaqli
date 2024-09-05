@@ -64,7 +64,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
             pst.setString(6, txtOsValor.getText().replace(",", "."));
             pst.setString(7, txtClienteId.getText());
 
-            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty())|| (cboSituacao.getSelectedItem().equals(" "))) {
+            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty()) || (cboSituacao.getSelectedItem().equals(" "))) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
             } else {
                 int adicionado = pst.executeUpdate();
@@ -106,7 +106,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
                 txtClienteId.setText(rs.getString(9));
                 //evitar erros ao pesquisar desabilitando menus
                 btnOsAdicionar.setEnabled(false);
-                txtClientePesquisa.setEnabled(false);
+                btnClientePesquisa.setEnabled(false);
                 tblClientes.setVisible(false);
                 //ativar demais botoes apos pesquisa
                 btnOsEditar.setEnabled(true);
@@ -138,7 +138,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
             pst.setString(6, txtOsValor.getText().replace(",", "."));
             pst.setString(7, txtOs.getText());
 
-            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty())|| (cboSituacao.getSelectedItem().equals(" "))) {
+            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty()) || (cboSituacao.getSelectedItem().equals(" "))) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
             } else {
                 int adicionado = pst.executeUpdate();
