@@ -8,6 +8,7 @@ import java.sql.*;
 import br.com.tecmaqli.dal.ModuloConexao;
 import net.proteanit.sql.DbUtils;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -45,9 +46,9 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
 
     private void setar_campos() {
         int setar = tblClientes.getSelectedRow();
-                    txtClienteId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
-            // Verifica se a célula está vazia ou nula antes de definir o texto
-        }
+        txtClienteId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
+        // Verifica se a célula está vazia ou nula antes de definir o texto
+    }
 
     //metodo para cadastrar uma os
     private void emitir_os() {
@@ -63,17 +64,15 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
             pst.setString(6, txtOsValor.getText().replace(",", "."));
             pst.setString(7, txtClienteId.getText());
 
-            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty())) {
+            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty())|| (cboSituacao.getSelectedItem().equals(" "))) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
             } else {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Documento emitido com sucesso");
-                    txtClienteId.setText(null);
-                    txtOsEquipamento.setText(null);
-                    txtOsDefeito.setText(null);
-                    txtOsServico.setText(null);
-                    txtOsValor.setText(null);
+                    btnOsAdicionar.setEnabled(false);
+                    btnClientePesquisa.setEnabled(false);
+                    btnOsImprimir.setEnabled(true);
                 }
             }
         } catch (Exception e) {
@@ -84,7 +83,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
     //metodo pesquisar os
     private void pesquisar_os() {
         String num_os = JOptionPane.showInputDialog("Número do Documento");
-        String sql = "select * from ordem_de_servico where os=" + num_os;
+        String sql = "select os, date_format(data_os, '%d/%m/%Y - %H:%i'), tipo, situacao, equipamento, defeito, servico, valor, idcliente from ordem_de_servico where os=" + num_os;
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -109,6 +108,10 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
                 btnOsAdicionar.setEnabled(false);
                 txtClientePesquisa.setEnabled(false);
                 tblClientes.setVisible(false);
+                //ativar demais botoes apos pesquisa
+                btnOsEditar.setEnabled(true);
+                btnOsDeletar.setEnabled(true);
+                btnOsImprimir.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Documento não cadastrado");
             }
@@ -135,28 +138,59 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
             pst.setString(6, txtOsValor.getText().replace(",", "."));
             pst.setString(7, txtOs.getText());
 
-            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty())) {
+            if ((txtClienteId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText().isEmpty())|| (cboSituacao.getSelectedItem().equals(" "))) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
             } else {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Documento alterado com sucesso");
-                    txtOs.setText(null);
-                    txtData.setText(null);
-                    txtClienteId.setText(null);
-                    txtOsEquipamento.setText(null);
-                    txtOsDefeito.setText(null);
-                    txtOsServico.setText(null);
-                    txtOsValor.setText(null);
-                    //habilitar 
-                    btnOsAdicionar.setEnabled(true);
-                    txtClientePesquisa.setEnabled(true);
-                    tblClientes.setVisible(true);
+                    limpar();
                 }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    private void excluir_os() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este documento", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from ordem_de_servico where os=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtOs.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "Documento excluído com sucesso");
+                    limpar();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
+    }
+
+    private void limpar() {
+        txtOs.setText(null);
+        txtData.setText(null);
+        txtClientePesquisa.setText(null);
+        ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
+        cboSituacao.setSelectedItem(" ");
+        txtClienteId.setText(null);
+        txtOsEquipamento.setText(null);
+        txtOsDefeito.setText(null);
+        txtOsServico.setText(null);
+        txtOsValor.setText(null);
+        //habilitar 
+        btnClientePesquisa.setEnabled(true);
+        btnOsAdicionar.setEnabled(true);
+        txtClientePesquisa.setEnabled(true);
+        tblClientes.setVisible(true);
+        //desabilitar
+        btnOsEditar.setEnabled(false);
+        btnOsDeletar.setEnabled(false);
+        btnOsImprimir.setEnabled(false);
     }
 
     /**
@@ -193,7 +227,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         txtOsValor = new javax.swing.JTextField();
         btnOsAdicionar = new javax.swing.JButton();
-        btnOsSituacao = new javax.swing.JButton();
+        btnClientePesquisa = new javax.swing.JButton();
         btnOsEditar = new javax.swing.JButton();
         btnOsDeletar = new javax.swing.JButton();
         btnOsImprimir = new javax.swing.JButton();
@@ -246,7 +280,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Situação");
 
-        cboSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Orçamento Aprovado", "Orçamento Reprovado", "Ordem de Serviço Cancelada", "Concluido", " ", " " }));
+        cboSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Orçamento Aprovado", "Orçamento Reprovado", "Ordem de Serviço Cancelada", "Concluido", " ", " " }));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -333,16 +367,17 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
             }
         });
 
-        btnOsSituacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/tecmaqli/icones/situação-doc-icon.png"))); // NOI18N
-        btnOsSituacao.setToolTipText("Pesquisar");
-        btnOsSituacao.addActionListener(new java.awt.event.ActionListener() {
+        btnClientePesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/tecmaqli/icones/situação-doc-icon.png"))); // NOI18N
+        btnClientePesquisa.setToolTipText("Pesquisar");
+        btnClientePesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOsSituacaoActionPerformed(evt);
+                btnClientePesquisaActionPerformed(evt);
             }
         });
 
         btnOsEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/tecmaqli/icones/edit-doc-icon.png"))); // NOI18N
         btnOsEditar.setToolTipText("Alterar");
+        btnOsEditar.setEnabled(false);
         btnOsEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOsEditarActionPerformed(evt);
@@ -351,9 +386,16 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
 
         btnOsDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/tecmaqli/icones/delete-doc-icon.png"))); // NOI18N
         btnOsDeletar.setToolTipText("Excluir");
+        btnOsDeletar.setEnabled(false);
+        btnOsDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsDeletarActionPerformed(evt);
+            }
+        });
 
         btnOsImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/tecmaqli/icones/print-icon.png"))); // NOI18N
         btnOsImprimir.setToolTipText("Imprimir");
+        btnOsImprimir.setEnabled(false);
         btnOsImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOsImprimirActionPerformed(evt);
@@ -404,7 +446,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnOsAdicionar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnOsSituacao)
+                                .addComponent(btnClientePesquisa)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnOsEditar)
                                 .addGap(18, 18, 18)
@@ -457,7 +499,7 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnOsSituacao)
+                    .addComponent(btnClientePesquisa)
                     .addComponent(btnOsDeletar)
                     .addComponent(btnOsAdicionar)
                     .addComponent(btnOsImprimir)
@@ -494,10 +536,10 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
         emitir_os();
     }//GEN-LAST:event_btnOsAdicionarActionPerformed
 
-    private void btnOsSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsSituacaoActionPerformed
+    private void btnClientePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientePesquisaActionPerformed
         // metodo para pesquisar OS
         pesquisar_os();
-    }//GEN-LAST:event_btnOsSituacaoActionPerformed
+    }//GEN-LAST:event_btnClientePesquisaActionPerformed
 
     private void btnOsEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsEditarActionPerformed
         // metodo alterar OS
@@ -514,13 +556,18 @@ public class TelaOrdem extends javax.swing.JInternalFrame {
         tipo = "Orçamento";
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void btnOsDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsDeletarActionPerformed
+        // metodo para excluir uma OS
+        excluir_os();
+    }//GEN-LAST:event_btnOsDeletarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClientePesquisa;
     private javax.swing.JButton btnOsAdicionar;
     private javax.swing.JButton btnOsDeletar;
     private javax.swing.JButton btnOsEditar;
     private javax.swing.JButton btnOsImprimir;
-    private javax.swing.JButton btnOsSituacao;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboSituacao;
     private javax.swing.JLabel jLabel1;

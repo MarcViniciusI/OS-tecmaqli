@@ -87,7 +87,7 @@
                           <Group type="102" attributes="0">
                               <Component id="btnOsAdicionar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnOsSituacao" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnClientePesquisa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnOsEditar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -157,7 +157,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnOsSituacao" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnClientePesquisa" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnOsDeletar" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnOsAdicionar" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnOsImprimir" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -219,13 +219,14 @@
     <Component class="javax.swing.JComboBox" name="cboSituacao">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
-            <StringItem index="0" value="Or&#xe7;amento Aprovado"/>
-            <StringItem index="1" value="Or&#xe7;amento Reprovado"/>
-            <StringItem index="2" value="Ordem de Servi&#xe7;o Cancelada"/>
-            <StringItem index="3" value="Concluido"/>
-            <StringItem index="4" value=" "/>
+          <StringArray count="7">
+            <StringItem index="0" value=" "/>
+            <StringItem index="1" value="Or&#xe7;amento Aprovado"/>
+            <StringItem index="2" value="Or&#xe7;amento Reprovado"/>
+            <StringItem index="3" value="Ordem de Servi&#xe7;o Cancelada"/>
+            <StringItem index="4" value="Concluido"/>
             <StringItem index="5" value=" "/>
+            <StringItem index="6" value=" "/>
           </StringArray>
         </Property>
       </Properties>
@@ -371,7 +372,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOsAdicionarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnOsSituacao">
+    <Component class="javax.swing.JButton" name="btnClientePesquisa">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/br/com/tecmaqli/icones/situa&#xe7;&#xe3;o-doc-icon.png"/>
@@ -379,7 +380,7 @@
         <Property name="toolTipText" type="java.lang.String" value="Pesquisar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOsSituacaoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientePesquisaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOsEditar">
@@ -388,6 +389,7 @@
           <Image iconType="3" name="/br/com/tecmaqli/icones/edit-doc-icon.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Alterar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOsEditarActionPerformed"/>
@@ -399,7 +401,11 @@
           <Image iconType="3" name="/br/com/tecmaqli/icones/delete-doc-icon.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Excluir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOsDeletarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOsImprimir">
       <Properties>
@@ -407,6 +413,7 @@
           <Image iconType="3" name="/br/com/tecmaqli/icones/print-icon.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Imprimir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOsImprimirActionPerformed"/>
