@@ -1,6 +1,25 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * The MIT License
+ *
+ * Copyright 2024 Marcos Vinicius.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.com.tecmaqli.telas;
 
@@ -9,8 +28,9 @@ import br.com.tecmaqli.dal.ModuloConexao;
 import javax.swing.JOptionPane;
 
 /**
+ * Autenticação do usuário
  *
- * @author marco
+ * @author Marcos Vinicius
  */
 public class TelaLogin extends javax.swing.JFrame {
 
@@ -18,6 +38,9 @@ public class TelaLogin extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+    /**
+     * Método responsável pela autenticação e gestão de perfil do usuário
+     */
     public void logar() {
         String sql = "select * from usuarios where login=? and senha =?";
         try {
@@ -62,22 +85,24 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form TelaLogin
+     * Método responsável por exibir cor de status da conexão Verde - conexão
+     * bem sucedida vermelha - falha na conexao
      */
     public TelaLogin() {
         initComponents();
         conexao = ModuloConexao.conector();
         // Verifica se a conexão foi estabelecida
-    if (conexao != null) {
-        // Define o texto e a cor para indicar sucesso
-        lblStatus.setText("TEC-MAQLI");//conexão bem sucedida
-        lblStatus.setForeground(new java.awt.Color(0, 128, 0)); // Cor verde
-    } else {
-        // Define o texto e a cor para indicar falha
-        lblStatus.setText("TEC-MAQLI");//falha na conexao
-        lblStatus.setForeground(java.awt.Color.RED); // Cor vermelha
+        if (conexao != null) {
+            // Define o texto e a cor para indicar sucesso
+            lblStatus.setText("TEC-MAQLI");//conexão bem sucedida
+            lblStatus.setForeground(new java.awt.Color(0, 128, 0)); // Cor verde
+        } else {
+            // Define o texto e a cor para indicar falha
+            lblStatus.setText("TEC-MAQLI");//falha na conexao
+            lblStatus.setForeground(java.awt.Color.RED); // Cor vermelha
+        }
     }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

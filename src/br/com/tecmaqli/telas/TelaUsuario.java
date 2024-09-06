@@ -1,12 +1,32 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
+ * The MIT License
+ *
+ * Copyright 2024 Marcos Vinicius.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.com.tecmaqli.telas;
 
 /**
+ * Tela de gestão de usuários
  *
- * @author marco
+ * @author Marcos Vinicius
  */
 import java.sql.*;
 import br.com.tecmaqli.dal.ModuloConexao;
@@ -26,7 +46,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
-    // metodo para consultar usuários
+    /**
+     * Método responsável pela pesquisa do usuário (Id do usuário)
+     */
     private void consultar() {
         String sql = "select * from usuarios where iduser=?";
         try {
@@ -48,7 +70,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
-    //metodo para adicionar usuários
+    /**
+     * Método responsável por adicionar um novo usuário
+     */
     private void adicionar() {
         String sql = "insert into usuarios(usuario, login, senha, perfil) values(?,?,?,?)";
         try {
@@ -75,7 +99,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
-    //metodo alterar dados do usuario
+    /**
+     * Método responsável pela edição dos dados do usuário
+     */
     private void alterar() {
         String sql = "update usuarios set usuario=?,login=?,senha=?,perfil=? where iduser=?";
         try {
@@ -102,6 +128,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Método responsável pela remoção de um usuário
+     */
     private void deletar() {
         //aviso ao remover usuario
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar este usuário");
@@ -121,6 +150,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Método responsável por limpar os campos e gerenciar os componentes
+     */
     private void limpar() {
         txtNomeUsuario.setText(null);
         txtLoginUsuario.setText(null);

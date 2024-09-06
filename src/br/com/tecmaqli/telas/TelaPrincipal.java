@@ -1,24 +1,54 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * The MIT License
+ *
+ * Copyright 2024 Marcos Vinicius.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.com.tecmaqli.telas;
 
+import br.com.tecmaqli.dal.ModuloConexao;
 import java.util.Date;
 import java.text.DateFormat;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 
 /**
+ * Tela principal do sistema
  *
- * @author marco
+ * @author Marcos Vinicius
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+
+    Connection conexao = null;
 
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
+        conexao = ModuloConexao.conector();
     }
 
     /**
@@ -41,7 +71,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menucados = new javax.swing.JMenuItem();
         menucadusuario = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
-        menuServico = new javax.swing.JMenuItem();
+        menuRelClientes = new javax.swing.JMenuItem();
+        menuRelServico = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         menuSobre = new javax.swing.JMenuItem();
         menuOp = new javax.swing.JMenu();
@@ -112,10 +143,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuRelatorio.setText("Relatório");
         menuRelatorio.setEnabled(false);
+        menuRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelatorioActionPerformed(evt);
+            }
+        });
 
-        menuServico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        menuServico.setText("Serviços");
-        menuRelatorio.add(menuServico);
+        menuRelClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuRelClientes.setText("Clientes");
+        menuRelClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelClientesActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(menuRelClientes);
+
+        menuRelServico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuRelServico.setText("Serviços");
+        menuRelServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelServicoActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(menuRelServico);
 
         Menu.add(menuRelatorio);
 
@@ -207,18 +257,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void menuOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpActionPerformed
-    
+
     }//GEN-LAST:event_menuOpActionPerformed
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
         // exibi uma caixa de dialogo ao sair
-        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair ?","Atenção",JOptionPane.YES_NO_OPTION);
-        if (sair ==JOptionPane.YES_OPTION){
-        System.exit(0);}
+        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair ?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (sair == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_menuSairActionPerformed
 
     private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
-        // axibir tela sobre
+        // exibir tela sobre
         TelaSobre sobre = new TelaSobre();
         sobre.setVisible(true);
     }//GEN-LAST:event_menuSobreActionPerformed
@@ -236,6 +287,56 @@ public class TelaPrincipal extends javax.swing.JFrame {
         os.setVisible(true);
         Desktop.add(os);
     }//GEN-LAST:event_menucadosActionPerformed
+
+    private void menuRelClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelClientesActionPerformed
+        // gerando relatorio de clientes
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirmar a impressão deste relatório", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                conexao = ModuloConexao.conector();
+                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/clientes.jasper"), null, conexao);
+                JasperViewer.viewReport(print, false);
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(null, e);
+            } finally {
+                try {
+                    conexao.close();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_menuRelClientesActionPerformed
+
+    private void menuRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorioActionPerformed
+
+
+    }//GEN-LAST:event_menuRelatorioActionPerformed
+    /**
+     *
+     * @param evt
+     */
+    private void menuRelServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelServicoActionPerformed
+        // gerando relatorio de serviços
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirmar a impressão deste relatório", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                conexao = ModuloConexao.conector();
+                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/servicos.jasper"), null, conexao);
+                JasperViewer.viewReport(print, false);
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(null, e);
+            } finally {
+                try {
+                    conexao.close();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_menuRelServicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,9 +383,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuCad;
     private javax.swing.JMenu menuOp;
+    private javax.swing.JMenuItem menuRelClientes;
+    private javax.swing.JMenuItem menuRelServico;
     public static javax.swing.JMenu menuRelatorio;
     private javax.swing.JMenuItem menuSair;
-    private javax.swing.JMenuItem menuServico;
     private javax.swing.JMenuItem menuSobre;
     private javax.swing.JMenuItem menucadcliente;
     private javax.swing.JMenuItem menucados;
