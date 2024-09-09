@@ -21,6 +21,9 @@ Criar ordens de serviço: Registre todos os detalhes de cada serviço, desde o e
 Controlar o status: Acompanhe o andamento de cada ordem, do orçamento até a conclusão.
 Imprimir relatórios: Gere relatórios personalizados para acompanhar seus negócios.
 
+![Captura de tela 2024-09-09 002345](https://github.com/user-attachments/assets/60c20810-5ea3-4169-8eb5-9ac91d005d4f)
+
+
 ![gif os java](https://github.com/user-attachments/assets/0a23a35c-e462-40b9-a8bf-faed1db0e633)
 
 O projeto é construído com as seguintes tecnologias:
