@@ -22,7 +22,8 @@ Controlar o status: Acompanhe o andamento de cada ordem, do orçamento até a co
 Imprimir relatórios: Gere relatórios personalizados para acompanhar seus negócios.
 
 ![Captura de tela 2024-09-09 002345](https://github.com/user-attachments/assets/60c20810-5ea3-4169-8eb5-9ac91d005d4f)
-
+![Captura de tela 2024-09-09 002442](https://github.com/user-attachments/assets/c5963f50-c912-4208-9371-5d927acaa344)
+![Captura de tela 2024-09-09 002237](https://github.com/user-attachments/assets/5c0de823-89f7-4d91-bb2a-aa83843c1c6f)
 
 ![gif os java](https://github.com/user-attachments/assets/0a23a35c-e462-40b9-a8bf-faed1db0e633)
 
