@@ -20,7 +20,6 @@ Gerenciar clientes: Adicione,edite,exclua, pesquise e organize seus clientes com
 Criar ordens de serviço: Registre todos os detalhes de cada serviço, desde o equipamento até o valor final.
 Controlar o status: Acompanhe o andamento de cada ordem, do orçamento até a conclusão.
 Imprimir relatórios: Gere relatórios personalizados para acompanhar seus negócios.
-Como funciona a mágica?
 
 O projeto é construído com as seguintes tecnologias:
 
