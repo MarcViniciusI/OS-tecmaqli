@@ -1,5 +1,5 @@
 #  Java MySQL - Sistema OS-TecMaqli
-È um sistema desktop Windows para gestão de ordem de serviços de uma assistência técnica de computadores, notebooks e periféricos.
+È um sistema desktop Windows para gestão de ordem de serviços de uma assistência técnica de lavanderia e cozinhas industriais.
 
 ## Instruções para instalação e uso do aplicativo
 ### Pré requisitos
