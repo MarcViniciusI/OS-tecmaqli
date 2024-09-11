@@ -98,9 +98,9 @@ public class TelaLogin extends javax.swing.JFrame {
             lblStatus.setForeground(new java.awt.Color(0, 128, 0)); // Cor verde
         } else {
             // Define o texto e a cor para indicar falha
-            lblStatus.setText("TEC-MAQLI");//falha na conexao
+            lblStatus.setText("SEM CONEXÃO BD");//falha na conexao
             lblStatus.setForeground(java.awt.Color.RED); // Cor vermelha
-        }
+                }
     }
 
     /**
