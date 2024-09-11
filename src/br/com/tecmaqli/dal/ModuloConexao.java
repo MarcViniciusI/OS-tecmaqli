@@ -43,7 +43,7 @@ public class ModuloConexao {
         //armazenando informação do banco de dados
         String url = "jdbc:mysql://localhost:3306/dbtecmaqli?characterEncoding=utf-8";
         String user = "dba";
-        String password = "infox@123456";
+        String password = "";
         //estabelecendo conexao com banco de dados
         try {
             Class.forName(driver);
