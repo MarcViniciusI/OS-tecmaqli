@@ -5,8 +5,11 @@ Este projeto foi desenvolvido para organizar e facilitar a vida na oficina mecâ
 Aqui estão algumas das principais funcionalidades do nosso sistema:
 
 🙋Cadastro de Clientes: Adicione, edite e exclua informações dos seus clientes de maneira super fácil. Nunca mais perca os dados de contato de ninguém!
+
 🔧Gestão de Ordens de Serviço: Crie novas ordens de serviço, acompanhe o status dos reparos e consulte o histórico completo. Tudo em poucos cliques!
+
 📊Imprimir relatórios: Gere relatórios personalizados para acompanhar seus negócios.
+
 🔝Interface Intuitiva: Nada de complicação. O sistema foi desenhado para ser fácil de usar, até para quem não é muito fã de tecnologia. 😉
 
 ![Captura de tela 2024-09-09 002345](https://github.com/user-attachments/assets/60c20810-5ea3-4169-8eb5-9ac91d005d4f)
